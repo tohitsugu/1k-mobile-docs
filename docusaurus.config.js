@@ -19,13 +19,13 @@ module.exports = {
 const config = {
   title: "1Kosmos Developer Experience",
   tagline: "1Kosmos Developer Experience",
-  url: "https://1k-dev.1kosmos.net/",
-  baseUrl: "/devportal/",
-  onBrokenLinks: "ignore",
+  url: "https://eager-thompson-4fe0a6.netlify.app",
+  baseUrl: "/",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "1kosmos", // Usually your GitHub org/user name.
-  projectName: "devx_frontend", // Usually your repo name.
+  projectName: "1k-mobile-docs", // Usually your repo name.
   onDuplicateRoutes: "warn",
   themes: ["@docusaurus/theme-live-codeblock"],
   presets: [
