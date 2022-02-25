@@ -35,7 +35,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
+          sidebarPath: require.resolve("./docs/sidebars.js"),
           // Please change this to your repo.
           // editUrl: "https://github.com/1KBlockID/devx_frontend/tree/develop/", we might want this again someday
         },
