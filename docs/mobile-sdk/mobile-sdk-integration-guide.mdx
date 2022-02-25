@@ -1,0 +1,193 @@
+---
+sidebar_position: 5
+slug: /mobile-sdk/mobile-sdk-integration-guide
+id: mobile-sdk-integration-guide
+---
+
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import SDKFramwork1 from "./assets/ios1.png"
+import SDKFramwork2 from "./assets/ios2.png"
+import SDKFramwork3 from "./assets/ios3.png"
+import SDKFramwork4 from "./assets/ios4.png"
+
+# Mobile SDK Integration Guide
+
+## **Introduction**
+
+The goal of the BlockID Mobile SDK documentation is to give any developer with iOS or Android experience the knowledge and understanding required to create
+
+## **Prerequisites**
+
+Several general and platform-specific prerequisites are required to develop an android application with the BlockID Mobile SDK
+
+### General
+
+- An understanding of how to develop applications for iOS or Android
+- At least one compatible iOS or Android mobile device
+
+<Tabs groupId="SDK" className="unique-tabs">
+<TabItem value="android" label="Android SDK">
+
+### Android 
+
+- Android API Level 23 or higher
+- Android Studio 1.5 or higher
+- Device support
+    - Samsung S7, S8, A30, Fold 
+    - Google Pixel 3, Pixel 4a
+
+:::tip **Note**:
+Support for additional Android devices available as testing and development continues
+:::
+
+</TabItem>
+
+<TabItem value="iOS" label="iOS SDK">
+
+### iOS
+
+- Xcode 10.2+ or higher
+  - Deployment target of iOS 11.0 or higher
+  - Swift 5.0 or higher
+- Cocoapods 1.9.3 or higher
+- iOS Developer account
+- Device support
+  - iPhone 5s or later
+  - iPod Touch (6th generation) or later
+
+</TabItem>
+
+</Tabs>
+
+## **Integrate SDK into Application**
+
+The examples below import the BlockID SDK into a new iOS and Android project. The same steps can be used for integration into an existing application
+
+<Tabs groupId="SDK" className="unique-tabs">
+<TabItem value="android" label="Android SDK">
+
+### Android Studio Project Integration
+
+:::note Screenshots in this section are generated using Android Studio 4.0.
+:::
+
+#### Create a New Application
+
+- Step 1
+- Step 2
+- Step 3
+
+#### Install SDK in the Project
+
+As of writing this document, the BlockID Android SDK can only be installed using manual process as described below:
+
+#### Download the BlockID SDK
+
+- Step 1 
+- Step 2 
+- Step 3 
+
+#### Adding Required Android Libraries 
+
+- Step 1 
+- Step 2 
+- Step 3 
+
+</TabItem>
+<TabItem value="ios" label="iOS SDK">
+
+### Xcode Project Integration
+
+:::note Screenshots in this section are generated using Xcode 13.0.
+:::
+
+#### Create a New Application
+
+- Step 1 
+- Step 2
+- Step 3
+
+#### Install SDK in the Project
+
+As of writing this document, the BlockID iOS SDK can only be installed using manual process as described below:
+
+#### Download the BlockID SDK
+
+- Step 1
+- Step 2
+- Step 3 
+
+#### Adding Required iOS Libraries
+
+- Step 1
+- Step 2
+- Step 3
+
+</TabItem>
+</Tabs>
+
+
+## **Application Deployment**
+
+<Tabs groupId="SDK" className="unique-tabs">
+<TabItem value="android" label="Android SDK">
+
+### Android Studio Configuration
+
+Deploying an Android application using the BlockID Mobile SDK does not require any additional steps outside of the typical process
+
+</TabItem>
+
+<TabItem value="iOS" label="iOS SDK">
+
+### Xcode Configuration
+
+iOS applications require proper Xcode configuration. A below workaround for an App Store submission bug when archiving universal binaries is required
+
+- Create a new **Run Script Phase** in the application target's **Build Phases**
+
+- Paste the following in the script text field
+
+```shell 
+APP_PATH="${TARGET_BUILD_DIR}/${WRAPPER_NAME}"
+
+# This script loops through the frameworks embedded in the application and
+# removes unused architectures.
+find "$APP_PATH" -name '*.framework' -type d | while read -r FRAMEWORK
+do
+    FRAMEWORK_EXECUTABLE_NAME=$(defaults read "$FRAMEWORK/Info.plist" CFBundleExecutable)
+    FRAMEWORK_EXECUTABLE_PATH="$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME"
+
+    if [ ! -f "${FRAMEWORK_EXECUTABLE_PATH}" ]; then
+        continue
+    fi
+
+    if xcrun lipo -info "${FRAMEWORK_EXECUTABLE_PATH}" | grep --silent "Non-fat"; then
+        echo "Framework non-fat, skipping: $FRAMEWORK_EXECUTABLE_NAME"
+        continue
+    fi
+
+    echo "Thinning framework $FRAMEWORK_EXECUTABLE_NAME"
+
+    EXTRACTED_ARCHS=()
+
+    for ARCH in $ARCHS
+    do
+        echo "Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME"
+        xcrun lipo -extract "$ARCH" "$FRAMEWORK_EXECUTABLE_PATH" -o "$FRAMEWORK_EXECUTABLE_PATH-$ARCH"
+        EXTRACTED_ARCHS+=("$FRAMEWORK_EXECUTABLE_PATH-$ARCH")
+    done
+
+    echo "Merging extracted architectures: ${ARCHS}"
+    xcrun lipo -o "$FRAMEWORK_EXECUTABLE_PATH-merged" -create "${EXTRACTED_ARCHS[@]}"
+    rm "${EXTRACTED_ARCHS[@]}"
+
+    echo "Replacing original executable with thinned version"
+    rm "$FRAMEWORK_EXECUTABLE_PATH"
+    mv "$FRAMEWORK_EXECUTABLE_PATH-merged" "$FRAMEWORK_EXECUTABLE_PATH"
+done
+```
+</TabItem>
+</Tabs>

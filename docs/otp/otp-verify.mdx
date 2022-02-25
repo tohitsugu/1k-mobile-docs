@@ -1,0 +1,250 @@
+---
+sidebar_position: 3
+slug: /otp/verify
+id: otp3
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import OTPSMS from './assets/otpsms.png'
+import OTPEmail from './assets/otpemail.png';
+
+
+# Verify One-Time Passcode
+
+
+Use the BlockID SDK to verify the six-digit one-time passcode you received via SMS or email. 
+
+
+
+## **Verify One-Time Passcode**
+
+You can verify an OTP request immediately after receiving your six-digit one-time passcode.
+
+:::warning Please Note: 
+Each one-time passcode is only valid for a single verification. 
+Submitting an incorrect one-time passcode more than five times in 24 hours will result in a 30-minute account lockout. 
+:::
+
+
+
+### Parameters 
+
+- `username`: BlockID username (required)
+- `code`: Six-digit one-time passcode you received (required) 
+
+### Verification Format
+
+<Tabs groupId="OS">
+<TabItem value="node" label="NodeJS SDK">
+
+
+- Initialize the SDK and verify OTP
+
+```jsx
+const loaded = await bidsdk.setupTenant({dns: "<your tenant DNS>", communityName: "<your community name>"}, "<your license key>")`;
+let otpVerify = await BIDOTP.verifyOTP("<your email>", "<6 digit otp>");
+```
+
+</TabItem>
+
+<TabItem value="php" label="PHP SDK">
+
+- Initialize the SDK and verify OTP
+
+```php
+require_once("./BIDSDK.php");
+require_once("./BIDOTP.php");
+
+$tenant = array("dns" => "<your tenant URL>", "communityName" => "<your community name>");
+
+$license = "<your license key>"
+
+BIDSDK::getInstance()->setupTenant($tenant, $license);
+BIDOTP::verifyOTP("$userId", "$code");
+```
+</TabItem>
+
+<TabItem value="java" label="Java SDK">
+
+- Initialize the SDK and verify OTP
+
+```java
+BIDSDK.getInstance().setupTenant(<your tenant DNS>, "<your license key>");
+BIDOtpVerifyResult result = BIDOTP.verifyOTP("<your email>", "<6 digit otp>");
+```
+</TabItem>
+</Tabs>  
+
+## **Example OTP Verification**
+
+We've provided some example OTP verifications using the BlockID SDK. 
+
+Please note that these are just examples - a typical use-case would be to require verification of a one-time passcode as part of a sign-in request. 
+    
+
+
+<Tabs groupId="OS">
+<TabItem value="node" label="NodeJS SDK">
+
+Verify a one-time passcode request using the six digits you received via email or SMS.  
+
+
+#### Example OTP Request - SMS
+
+Example SMS containing six-digit one-time passcode. 
+
+<img src={OTPSMS} alt="OTP SMS" width='250' />
+
+
+
+#### Example OTP Verifcation 
+
+ ```jsx 
+const BIDSDK = require('blockid-nodejs-helpers/BIDSDK.js');
+const loaded = await BIDSDK.setupTenant({dns: "developer.1kosmos.com", communityName: "devx"}, "0005c9f8-1918-40be-aa00-e319043f7eee");
+const BIDOTP = require('blockid-nodejs-helpers/BIDOTP.js');
+
+var otpVerify = await BIDOTP.verifyOTP("john.smith@company.com", "062423");
+```
+
+
+</TabItem>
+<TabItem value="php" label="PHP SDK">
+
+Verify a one-time passcode request using the six digits you received via email or SMS.  
+
+#### Example OTP Request - SMS
+
+Example SMS containing six-digit one-time passcode. 
+
+<img src={OTPSMS} alt="OTP SMS" width='250' />
+
+#### Example OTP Verifcation 
+
+```php 
+require_once("./BIDSDK.php");
+require_once("./BIDSession.php");
+
+$tenant = array("dns" => "developer.1kosmos.com", "communityName" => "devx");
+$license = "0005c9f8-1918-40be-aa00-e319043f7eee";
+BIDSDK::getInstance()->setupTenant($tenant, $license);
+
+BIDOTP::verifyOTP("john.smith@company.com", "062423");
+```
+</TabItem>
+<TabItem value="java" label="Java SDK">
+
+Verify a one-time passcode request using the six digits you received via email or SMS.  
+
+
+#### Example OTP Request - SMS
+
+Example SMS containing six-digit one-time passcode. 
+
+<img src={OTPSMS} alt="OTP SMS" width='250' />
+
+
+#### Example OTP Verifcation 
+
+```java
+BIDSDK.getInstance().setupTenant({dns: "developer.1kosmos.com", communityName: "devx"}, "0005c9f8-1918-40be-aa00-e319043f7eee");
+
+BIDOtpVerifyResult result = BIDOTP.verifyOTP("john.smith@company.com", "062423");
+```
+</TabItem>
+</Tabs>
+
+Verify a request with the six-digit one-time passcode you received via SMS or email. 
+
+## **Example Server Responses**
+
+The SDK will return an immediate response from our API. The responses are the same across each SDK and are JSON formatted. Possible response codes you might receive include: 
+
+#### Server Response
+
+
+<Tabs groupId="responses">
+
+  <TabItem value="200" label="200">
+
+```jsx title="200 OK"
+
+{
+    "messageId":"15f9dd86-9a8a-4c66-900a-f711f5acceb1",
+    "info":"OTP request verified"
+}
+```
+The one-time passcode was verified and accepted. 
+
+  </TabItem>
+
+  <TabItem value="401" label="401">
+
+```jsx title="401 Unauthorized"
+
+{
+    "error_code": 401,
+    "message":"Unauthorized"
+}
+
+```
+The request was not authorized. 
+
+  </TabItem>
+
+  <TabItem value="403" label="403">
+
+```jsx title="403 Locked"
+
+{
+    "error_code": 403,
+    "message":"OTP locked for the user"
+}
+The incorrect one-time passcode was entered more than five times in 24 hours, resulting in an account lockout. User accounts will automatically unlock after 30 minutes.   
+
+```
+
+  </TabItem>
+
+  <TabItem value="404" label="404">
+
+```jsx title="404 Not Found"
+
+{
+    "error_code": 404,
+    "message":"OTP is Invalid"
+}
+
+```
+The API received an incorrect one-time passcode.
+  </TabItem>
+
+   <TabItem value="409" label="409">
+
+```jsx title="409 Error"
+
+{
+    "error_code": 409,
+    "message":"OTP is already used"
+}
+
+```
+The user already used the provided one-time passcode. 
+
+
+  </TabItem>
+   <TabItem value="410" label="410">
+
+```jsx title="410 Error"
+
+{
+    "error_code": 410,
+    "message":"OTP match found, but the validity time has expired"
+}
+
+```
+The user entered a valid one-time passcode, but the validation time frame has expired. 
+  </TabItem>
+</Tabs>
+

@@ -1,0 +1,157 @@
+---
+slug: /uwl/creates_session
+id: uwl-create-session
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import DecodedQR from "./assets/decodedqr-2.jpg";
+
+# Create UWL Session
+
+## **Create a New UWL Session**
+
+Use the BlockID SDK to create a new UWL session as part of your passwordless login experience. The BlockID mobile application will interact with your UWL session and return the information needed to process and complete the login request.
+
+### Request Format
+
+<Tabs groupId="OS">
+<TabItem value="node" label="NodeJS SDK">
+
+- Initialize the SDK and create a new UWL session
+
+```jsx
+const loaded = await bidsdk.setupTenant({dns: "<your tenant DNS>", communityName: "<your community name>"}, "<your license key>")`;
+let session = await  BIDSessions.createNewSession(null, null);
+```
+
+</TabItem>
+
+<TabItem value="php" label="PHP SDK">
+
+- Initialize the SDK and create a new UWL session
+
+```php
+require_once("./BIDSDK.php");
+require_once("./BIDOTP.php");
+
+$tenant = array("dns" => "<your tenant URL>", "communityName" => "<your community name>");
+
+$license = "<your license key>"
+
+BIDSDK::getInstance()->setupTenant($tenant, $license);
+```
+
+</TabItem>
+
+<TabItem value="java" label="Java SDK">
+
+- Initialize the SDK and create a new UWL session
+
+```java
+BIDSDK.getInstance().setupTenant(<your tenant DNS>, "<your license key>");
+BIDSession session = BIDSessions.createNewSession(null, null);
+```
+
+</TabItem>
+</Tabs>
+
+## **Example UWL Request**
+
+:::caution Remember:
+You will need to initialize the SDK with your license key and community name for each request.  
+:::
+
+<Tabs groupId="OS" className="unique-tabs">
+<TabItem value="node" label="NodeJS SDK">
+
+#### Example - Start UWL Session
+
+Start a UWL session using the BlockID SDK.
+
+```jsx
+const BIDSDK = require("blockid-nodejs-helpers/BIDSDK.js");
+const loaded = await BIDSDK.setupTenant(
+  { dns: "developer.1kosmos.com", communityName: "devx" },
+  "0005c9f8-1918-40be-aa00-e319043f7eee"
+);
+
+const BIDSessions = require("blockid-nodejs-helpers/BIDSessions.js");
+let session = await BIDSessions.createNewSession(null, null);
+```
+
+</TabItem>
+<TabItem value="php" label="PHP SDK">
+
+#### Example - Start UWL Session
+
+Start a UWL session using the BlockID SDK.
+
+```php
+require_once("./BIDSDK.php");
+require_once("./BIDSession.php");
+
+$tenant = array("dns" => "developer.1kosmos.com", "communityName" => "devx");
+$license = "0005c9f8-1918-40be-aa00-e319043f7eee";
+BIDSDK::getInstance()->setupTenant($tenant, $license);
+
+$ret = BIDSession::createNewSession(null, null);
+```
+
+</TabItem>
+<TabItem value="java" label="Java SDK">
+
+#### Example - Start UWL Session
+
+Start a UWL session using the BlockID SDK.
+
+```java
+BIDSDK.getInstance().setupTenant({dns: "developer.1kosmos.com", communityName: "devx"}, "0005c9f8-1918-40be-aa00-e319043f7eee");
+
+BIDSession session = BIDSessions.createNewSession(null, null);
+```
+
+</TabItem>
+</Tabs>
+
+## **Example Server Response**
+
+The SDK will return an immediate response from our API. The responses are the same across each SDK and are JSON formatted. Possible response codes you might receive include:
+
+#### Server Responses
+
+<Tabs groupId="responses" className="unique-tabs">
+
+  <TabItem value="200" label="200">
+
+```jsx title="200 OK"
+{
+  sessionId: '574bc7f9-b895-4f60-b982-e8e8b8cc1fb0',
+  serviceEnv: '1ksession:development'
+}
+```
+
+A new UWL session was created
+
+When a session is created using the SDK, a unique session ID and URL endpoint are created, and a polling service starts looking for a response. The session will remain valid for 60 seconds. If the polling service does not receive a response within that timeframe, the session will expire and close.
+
+**To authenticate the request using the BlockID mobile application you will need to encode the session information in a QR code, such as the one in the image below**.
+
+<img src={DecodedQR} height="300" />
+
+</TabItem>
+<TabItem value="404 Not Found" label="404">
+
+```jsx title="404 Not Found"
+Promise {
+  { status: 404, message: 'Not Found' },
+  [Symbol(async_id_symbol)]: 3588,
+  [Symbol(trigger_async_id_symbol)]: 5,
+  [Symbol(destroyed)]: { destroyed: false }
+}
+```
+
+The API could not process the request.
+
+</TabItem>
+</Tabs>

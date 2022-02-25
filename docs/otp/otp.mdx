@@ -1,0 +1,35 @@
+---
+sidebar_position: 2
+slug: /otp
+id: otp1
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import OTPBrowser from "./assets/otpbrowser.png";
+import BrowserWindow from "@site/src/components/BrowserWindow";
+
+# OTP Authentication
+
+BlockID one-time passcodes are a great way to add additional authentication to your login experience. Integration is simple using our SDK and only requires a few lines of code.
+
+BlockID one-time passcodes work with all valid email addresses. Phone numbers from most countries are currently supported.
+
+## **How it Works**
+
+As part of your sign-in process, users will receive an SMS message or an email containing a one-time passcode after entering their username and password.
+
+Users will need to verify that one-time passcode on your application or website to complete their sign-in.
+
+<BrowserWindow url="http://developer.1kosmos.com/">
+  <img src={OTPBrowser} alt="Example banner" />
+</BrowserWindow>
+
+One-Time Passcodes can be sent via **[SMS](/docs/otp/request#sending-a-one-time-passcode-via-sms)** or **[Email](/docs/otp/request#sending-a-one-time-passcode-via-email)**.
+
+### Requirements
+
+- BlockID SDK - installed and initialized with license key and tenant information.
+- Phone number or email address you wish to send the one-time passcode to.
+
+See [Getting Started](/docs#gettingstarted) for more information on installing and initializng the BlockID SDK.

@@ -1,0 +1,264 @@
+---
+sidebar_position: 5
+slug: /mobile-sdk/ios/ios-integration-guide
+id: ios-integration-guide
+---
+
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import SDKFramwork1 from "./assets/ios1.png"
+import SDKFramwork2 from "./assets/ios2.png"
+import SDKFramwork3 from "./assets/ios3.png"
+import SDKFramwork4 from "./assets/ios4.png"
+
+# iOS SDK Integration Guide
+
+## **Introduction**
+
+The goal of the BlockID Mobile SDK documentation is to give any developer with iOS or Android experience the knowledge and understanding required to create
+
+## **Prerequisites**
+
+Several general and platform specific prerequisites are required to develop an android application with the BlockID Mobile SDK
+
+### General
+
+- An understanding of how to develop applications for iOS or Android
+- At least one compatible iOS or Android mobile device
+
+### iOS
+
+- Xcode 10.2+ or higher
+  - Deployment target of iOS 11.0 or higher
+  - Swift 5.0 or higher
+- Cocoapods 1.9.3 or higher
+- iOS Developer account
+- Device support
+  - iPhone 5s or later
+  - iPod Touch (6th generation) or later
+
+You will need the following tools to complete this integration:
+
+- Xcode 12.0 or higher 
+- Swift 5.0 or higher
+- Cocoapods 1.9.3 or higher
+- iOS 11.0 and above
+
+## BlockID iOS SDK Setup
+
+The setup consists of the following steps:
+
+- Adding Cocoapods
+- Add BlockID SDK Framework
+- SDK Initialization
+
+### Adding CocoaPods 
+
+
+Add the following pods to the podfile of the project and install those pods
+
+
+```shell 
+# Uncomment the next line to define a global platform for your project
+ platform :ios, '11.0'
+
+target 'BlockIDTestApp' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for BlockIDTestApp
+  pod 'TrustWalletCore', '~> 2.5.6'
+  pod 'Alamofire','~> 4.9.1'
+  pod 'CryptoSwift', '~> 1.3.0'
+  pod 'BigInt', '~> 4.0'
+  pod 'SwiftyTesseract', '~> 3.1.3'
+  pod 'OpenSSL-Universal', '~> 1.1.180'
+  pod 'Toast-Swift', '~> 5.0.1'
+end
+
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+
+      # build active architecture only
+      config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
+
+      # set iOS Deployment Target to 11.0
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+    end
+  end
+end
+```
+
+Run `pod install` command in the terminal. Open `.xcworkspace` in `xcode`
+
+### Add BlockID SDK frameworks
+
+- Copy `BlockIDSDK.framework` into your application
+
+<img src={SDKFramwork1} />
+
+- Add `BlockIDSDK.framework` into frameworks section 
+
+<img src={SDKFramwork2} />
+
+- Embed & Sign the framework under *Frameworks -> Library section* from General tab under project editor
+
+<img src={SDKFramwork3} />
+
+- Go to *Build Settings* of Target
+    - Set *Validate Workspace* -> Yes
+    - Set *Enable Bitcode* -> Yes
+    
+:::tip **Note:**
+The above settings must be applied for both Debug and Release Configurations
+:::
+
+- *Run Script* to remove any non-required architecture while creating (IPA). Add below *Script* under *Build Phase*
+
+```shell
+APP_PATH="${TARGET_BUILD_DIR}/${WRAPPER_NAME}"
+
+# This script loops through the frameworks embedded in the application and
+# removes unused architectures.
+find "$APP_PATH" -name '*.framework' -type d | while read -r FRAMEWORK
+do
+    FRAMEWORK_EXECUTABLE_NAME=$(defaults read "$FRAMEWORK/Info.plist" CFBundleExecutable)
+    FRAMEWORK_EXECUTABLE_PATH="$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME"
+
+    if [ ! -f "${FRAMEWORK_EXECUTABLE_PATH}" ]; then
+        continue
+    fi
+
+    if xcrun lipo -info "${FRAMEWORK_EXECUTABLE_PATH}" | grep --silent "Non-fat"; then
+        echo "Framework non-fat, skipping: $FRAMEWORK_EXECUTABLE_NAME"
+        continue
+    fi
+
+    echo "Thinning framework $FRAMEWORK_EXECUTABLE_NAME"
+
+    EXTRACTED_ARCHS=()
+
+    for ARCH in $ARCHS
+    do
+        echo "Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME"
+        xcrun lipo -extract "$ARCH" "$FRAMEWORK_EXECUTABLE_PATH" -o "$FRAMEWORK_EXECUTABLE_PATH-$ARCH"
+        EXTRACTED_ARCHS+=("$FRAMEWORK_EXECUTABLE_PATH-$ARCH")
+    done
+
+    echo "Merging extracted architectures: ${ARCHS}"
+    xcrun lipo -o "$FRAMEWORK_EXECUTABLE_PATH-merged" -create "${EXTRACTED_ARCHS[@]}"
+    rm "${EXTRACTED_ARCHS[@]}"
+
+    echo "Replacing original executable with thinned version"
+    rm "$FRAMEWORK_EXECUTABLE_PATH"
+    mv "$FRAMEWORK_EXECUTABLE_PATH-merged" "$FRAMEWORK_EXECUTABLE_PATH"
+done
+```
+
+- Edit scheme from debug to Release **(Optional)**
+
+:::tip **Note:**
+The encryption of data takes time while the app runs in debug mode
+:::
+
+<img src={SDKFramwork4} />
+
+### SDK Initialization
+
+The SDK is now added to your application, in order to get the features of the SDK, you need to add the license key and tenant details. You have to set following parameters in your project
+
+:::tip **Note:**
+these must be done in the same sequence as listed below:::
+
+- Set license key
+- Create wallet
+- Register tenant
+- Commit wallet
+
+:::caution
+The *set license* function should be called on every launch of the application. 
+
+Any time the license key is changed (from previous launches), the SDK will self-reset and all stored data will be lost
+:::
+
+Other functions (create, register, commit) should be called only if the SDK is not ready. See method `isReady()` below
+
+#### Set License key
+
+To set the license key use the code below
+
+```shell 
+BlockIDSDK.sharedInstance.setLicenseKey(key: String)
+```
+
+- Request Parameters
+
+| Params | Description                 |
+|--------|-----------------------------|
+| key    | string value of license key |
+
+#### Initialize wallet
+
+The function below is used to initialize a temporary wallet
+
+```shell 
+ BlockIDSDK.sharedInstance.initiateTempWallet() {(status, error) in
+    //your code here
+}
+```
+
+- Response Parameters
+
+<table>
+  <tbody>
+    <tr>
+      <th>Params</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+    <td>status</td>
+      <td>
+         Boolean value: True / False
+        <ul>
+          <li>True - on success</li>
+          <li>False - on failure</li>
+          </ul>          
+      </td>
+   </tr>
+    <tr>
+    <td>error</td>
+      <td>
+      NSObject of ErrorResponse: The above object consists of two parameters
+        <ul>
+          <li>Code type of integer</li>
+          <li>The message type of string</li>
+          </ul>
+      </td>
+   </tr>
+   <tr>
+    <td>tenant</td>
+      <td>
+      Type of BIDTenant
+   </td>
+   </tr>
+  </tbody>
+</table>
+
+#### Register Tenant
+
+Tenants can be represented as the value or an object on which ones api calls can be registered.There are two types of tenant one will be the root and another will be the client tenant. Root tenant will be used to store the details regarding the user enrolled biometric and digital assets where else the users enrolled persona will be stored on the client tenant.
+ 
+Application is expected to call ‘registerTenant’ once. If an existing tenant is set, the application will load it after validating licenseKey.SDK will only allow tenant registry if and only if the license key is already added.
+
+:::tip **Note**:
+A root tenant can always be a client tenant but a client tenant cannot be a root tenant
+:::
+
+Tenant details is the object which will builde set in the framework for APIs
+
+```shell
+static let defaultTenant = BIDTenant.makeTenant(tag: "tenantTag", community: "default", dns: "dns/url")
+```

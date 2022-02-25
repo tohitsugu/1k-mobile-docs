@@ -1,0 +1,77 @@
+---
+slug: /uwl
+id: uwl1
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import SignIn from "./assets/signin.png";
+import ScanQR from "./assets/scanqr.jpg";
+import StartSession from "./assets/start-session.jpg";
+import QRSession from "./assets/qr-session.jpg";
+import DecodedQR from "./assets/decodedqr.jpg";
+import Success from "./assets/success.jpg";
+import QRScanned from "./assets/qr-scanned.jpg";
+import API from "./assets/uwlapi.png";
+import BrowserWindow from "@site/src/components/BrowserWindow";
+
+# Universal Web Login
+
+BlockID universal web login (UWL) is a flexible authentication framework for web and mobile applications that ensures the highest level of assurance by reaching IAL3[^1] and AAL3[^2]levels per the [NIST 800-63-3](https://doi.org/10.6028/NIST.SP.800-63-3) guidelines.
+
+## **How it Works**
+
+BlockID universal web login (UWL) is a form of passwordless authentication that replaces the traditional username, password & MFA-based login by leveraging user biometrics with the BlockID mobile app. Universal web login supports all true biometric options, including TouchID, FaceID, and LiveID. UWL brings a passwordless experience to your application or website.
+
+<BrowserWindow url="https://developer.1kosmos.com/signin">
+  <img src={SignIn} alt="Sign-In" />
+</BrowserWindow>
+
+#### BlockID UWL consists of two main sections:
+
+##### 1. Developer's Application
+
+Use the SDK to create a unique session ID and session URL. The session URL should be encoded into a QR code so that the BlockID mobile application can scan it, as shown in the image below:
+
+<img src={DecodedQR} height="300" />
+
+##### 2. BlockID Mobile Application
+
+Your user scans the QR code displayed on your application or website and authenticates the request using their enrolled biometrics. After authentication, the mobile application forwards their user data to your application or website
+
+### Requirements
+
+- BlockID SDK - installed and initialized with license key and tenant information.
+- A development environment to poll and process UWL sessions - such as a login page.
+- The BlockID Mobile Application
+
+See [Getting Started](/docs#gettingstarted) for more information on installing and initializing the BlockID SDK.
+
+### Download the BlockID Mobile Application
+
+Download and install the BlockID mobile application for your device:
+
+<Tabs groupId="download" className="unique-tabs">
+
+<TabItem value="android" label="Android" default>
+  <a href="https://play.google.com/store/apps/details?id=com.onekosmos.kernel.blockid">
+    {" "}
+    BlockID for Android{" "}
+  </a>{" "}
+  <br />  
+  <br />
+  Download the BlockID Mobile Application for Android devices.
+</TabItem>
+
+<TabItem value="ios" label="iOS">
+    
+<a href="https://apps.apple.com/us/app/blockid/id1539421428"> BlockID for iOS </a> <br/>
+<br/>Download the BlockID Mobile Application for Apple devices.
+
+  </TabItem>
+</Tabs>
+
+Follow the on-screen instructions to register your application with the BlockID Platform and enroll your biometrics. Visit our [BlockID Mobile Application User Guide](https://1kosmos.document360.io/docs/blockid-mobile-application-user-guide#EnrollBio) for a step by step understanding of the enrollment process.
+
+[^1]: Physical presence is required for identity proofing. Identifying attributes must be verified by an authorized and trained representative of the CSP. As with IAL2, attributes can be asserted by CSPs to RPs in support of pseudonymous identity with verified attributes.
+[^2]: AAL3: Provides very high confidence that the claimant controls authenticator(s) bound to the subscriber’s account. Authentication at AAL3 is based on proof of possession of a key through a cryptographic protocol. AAL3 authentication SHALL use a hardware-based authenticator and an authenticator that provides verifier impersonation resistance; the same device MAY fulfill both these requirements. In order to authenticate at AAL3, claimants SHALL prove possession and control of two distinct authentication factors through secure authentication protocol(s). Approved cryptographic techniques are required.

@@ -1,0 +1,72 @@
+---
+sidebar_position: 1
+slug: /idverify/verification-concepts
+id: id1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import IdVerify from "./assets/idverify.png"
+
+# Verification Concepts 
+
+export const Highlight = ({children, color}) => (
+  <span
+    style={{
+      backgroundColor: color,
+      borderRadius: '6px',
+      fontSize: '28px',
+      color: '#fff',
+      padding: '0.2rem',
+    }}>
+    {children}
+  </span>
+);
+
+#### <Highlight color="#d62718">COMING SOON</Highlight>
+
+BlockID identity verification performs single-source KYC and anti-money laundering verification, delivering a one-stop compliance solution to customers and developers. We combine digital identity checks with reports from credit bureaus, eKYC verifiers, DMVs, and global watchlist data to deliver comprehensive one-stop identity verification with a bring-your-own KYC provider model.
+
+BlockID Identity Verification is used to authenticate documents such as passports, driver's licenses, ID cards, and personally identifiable information, such as social security numbers, tax ID numbers, and birth records. 
+
+The new BlockID Developer API extends our complete identity verification services to others, allowing developers to verify identity documents and personally identifiable information in real-time. Developers can choose the identity assurance their applications need right up to and including KYC, [NIST 800 63-3 standards](https://pages.nist.gov/800-63-3/sp800-63-3.html) for Identity Assurance Level 2 (IAL2), and Authentication Assurance Level 2 (AAL2).
+
+
+## **How it Works**
+
+Users will need to download and install the BlockID mobile application. When users first set up the application, they will go through a quick onboarding process to create a private key, enroll their biometric data with TouchID/FaceID, and liveness verification scan using LiveID. LiveID uses a combination of biometric data, machine learning, and artificial intelligence to ensure that the user is natural, human, and not a bot or somebody trying to spoof their identity.
+
+Users can also include data from non-physical IDs, such as telco account numbers and banking credentials. For additional use cases, you can also verify a user's social security number with the Social Security Administration, as well as other information - a popular healthcare use case is to confirm if a user is indeed a physician by validating their NPIN (National Physician Information Number).
+
+The more information that is added and verified, the more complete the identity assurance level will be, as defined by [NIST](https://pages.nist.gov/800-63-3/sp800-63-3.html) 
+
+
+Once verified, your users will have their digital identity for account login or transaction approval rather than a username and password. Having your digital identity proved not only provides users with a positive experience, but the organization also benefits from a high level of certainty for who is at the other end of the digital connection.
+
+## **Verification Types**
+
+We currently offer four levels of identity verification:
+
+|    Verification Type   |  Parameter Name | Explanation                                                                                                                                                                                              |
+|:----------------------:|:---------------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Social Security Number | `ssn_verify`    | A social security number verification allows users to confirm a user's identity against records from the Social Security Administration.                                                                 |
+| Driver's License       | `dl_verify`     | A driver's license (or state ID card) verification allows users to confirm credential data against the databases of the issuing Motor Vehicle Agencies.                                                 |
+| Face Liveness          | `face_liveness` | A face liveness verification ensures that a user's visual identity matches the images in their identity documents by performing real-time liveness checks - having a user blink, and smile, for example. |
+| Face Compare           | `face_compare`  | A face comparison verification compares the photos from two different source to ensure that the pictures of the person in the identity documents are the same individual.                                   |
+
+
+### Creating Verification Endpoints
+
+<a href={IdVerify} target="_blank">
+    <img src={IdVerify} alt="IDVerify" />
+  </a>
+
+
+
+### Requirements
+
+- BlockID SDK - installed and initialized with license key and tenant information.
+- Identity Information - Information about the identity you wish to verify. Identity information includes users' names, state driver's license or ID card numbers, and social security numbers.
+
+See [Getting Started](/docs#gettingstarted) for more information on installing and initializing the BlockID SDK.
+

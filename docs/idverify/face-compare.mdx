@@ -1,0 +1,167 @@
+---
+sidebar_position: 4
+slug: /idverify/face-compare
+id: id4
+---
+
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Face Compare Verification
+
+
+export const Highlight = ({children, color}) => (
+  <span
+    style={{
+      backgroundColor: color,
+      borderRadius: '6px',
+      fontSize: '28px',
+      color: '#fff',
+      padding: '0.2rem',
+    }}>
+    {children}
+  </span>
+);
+
+#### <Highlight color="#d62718">COMING SOON</Highlight>
+
+### Parameters
+
+**`data`**:
+- `dvcID`: your dvcID number (required)
+- `verifications`: `face_compare` 
+
+**`document`**
+- `id`: document ID number (required)
+- `type`: document type (required)
+- `image1`: first base64-encoded image of user's face for comparison (required)
+- `image2`: second base64-encoded image of user's face for comparison (required)
+
+
+
+### Verification Format 
+
+#### Face Compare Verification 
+
+```jsx 
+{
+   "data": {
+       "dvcID": "<dvcID number>",
+       "verifications": [
+           "face_compare"
+       ],
+        "document": {
+            "id": "<document id number>",
+            "type": "<document type>", 
+            "image1": "<base64-encoded image of user's face #1>",
+            "image2": "<base64-encoded image of user's face #2>",
+        }     
+    } 
+}
+```
+
+#### Social Security Number, Drivers License, Face Compare and Face Liveness Verifications
+
+Identity verifications can be combined if desired. 
+
+```jsx 
+{
+   "data": {
+       "dvcID": "<dvcID number>",
+       "verifications": [
+           "dl_verify", "ssn_verify", "face_liveness", "face_compare"
+       ],
+       "document": {
+            "id": "<document id number>",
+            "type": "<document type>", 
+            "ssn": "<user's social security number>", 
+            "category": "identity_document",
+            "firstName": "<first name as shown>",
+            "lastName": "<last name as shown>",
+            "middleName": "<middle name as shown>",
+            "dob": "<DOB as shown>",
+            "doi": "<date of issue as shown>",
+            "doe": "<date of expiration as shown>",
+            "documentType": "PC",
+            "gender": "<1 for female, 2 for male>",
+            "height": "<height as shown>",
+            "eyeColor": "<eye color as shown>",
+            "street": "<street name and number as shown>",
+            "city": "<city as shown>",
+            "state": "<state as shown>",
+            "zipCode": "<zip as shown>",
+            "country": "<country as shown>",
+            "nameSuffix": "",            
+            "image1": "<base64-encoded image of user's face #1>",
+            "image2": "<base64-encoded image of user's face #2>",    
+            "liveId": "<base64-encoded image of user's face for LiveID>"
+       }    
+    } 
+}
+```
+## **Example Face Compare Verifications**
+
+We've provided some example requests to demonstrate the full request format. 
+
+:::tip Please note: 
+Dummy data is included in the examples below
+:::
+
+
+#### Example Verification - Face Compare
+
+```jsx
+{
+   "data": {
+       "dvcID": "61a3f09647005c0013200000",
+       "verifications": [
+           "face_compare"
+       ],
+       "document": {
+           "id": "123",
+           "type": "ID Photos",
+           "image1": "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADDklEQVRYR73XS6hWVRQH8J/SLYsbhXotKiorUHImiPSgBxQZlIPMHpCzQpMQhEjsAREF1VCimjQwIiKlQUIPijLKCp0ERUVSlElE5NVMB+W91/jjObA9fH3fuV+nu2bn7PX477X2es3SjmbhWtyOTTg6zo+4qCG+ci47DrL9OKvaqI7ifpTzO/EoLsdxzMOhmQBwKV6qbl6DnJopADfjVZzdcM+MAFiNV3Bqw/jveBFP4Nj/FYLr8A5OK4xPYgsex+H6/x9cNtEAOcm+BRwZ9hGeiy9wTmE8Bu/C221edM0zLIDXEffXdAQ34vPpGA/vMACuwseo0zLplpsH1LRpGABv4tbC0mu4e9qWK4HpAjgPP+GUSv5vLHKi0g1F4zyEK9oIx+Xr8ELBvA13tBHugicAUnBKd6f0Doz9AW6azRkliBE+G+XXXsB+Y3TkxKM+iQLgKyyp/ubxJSQ9lZSS/QpRLwCHWTTBt70AJNfPrA7GMb9qOn093CWA3LqmPLyFbWLbJYCU2tmV0WTDxTMN4ADmVkaP4iwEVF86yPtTnF8yTbF+jA97CR5i4SRv9XoDu7GsOEgN+G4QgK7OkwVpsWsLhesbdaErW9GTLjtWKPwrANKAyrzfhau7tFroehhPFd9bA2AUvxSpmKy4Bp90DCJFa29VZ2rVt9Td73ncXxjcgysx0SGIJ/FIoe+H9JwaQFLva5xeMDyNzR0BuB7vYqTQd2+G3nIsz6z3WMGQUGzAc/8RxFK8V6R61CXz4uHJEkCG0MS9TMlMwc9WwIYJx0q8XNWW+h5/Yjm+yY/mYnIhPtUoMMib2IhkSBu6AIn5mqLKRi6XSLd9o1bSazNaXLksSkpKSAIgI/sH+B7xUE0LkNEu69ttmNOQP4b7sLX8/2+rWTyxvRGOJpgMrdkVUrazwKSc1z2l6aWU+3uqkf+ks367Yd5EdsIHG9nRJgQ1T7yWefMB7O8lOGg5jUxSNDNeblDPDYNAxCt5+c9gZz/mNgBq+RhfgRuQ1Lqkcn3cni76M77ER9iBfYNQ5vwf0qfPvHyWFiMAAAAASUVORK5CYII=",
+           "image2": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAdNJREFUOE+tUz1IW1EYPfe+20TR+IJLsXRQUIc41EWdHDqUQi1CqY6CoIOzIp0Ljk6dAnUQxMW9dFDIkKG1gz/YiIokooaEgISY32fz7vW79/UFM4b4wXs8uOece86597Fa0lZoY3gbXEN9HgEpW0/hc7jzoPDn0G05SXy/7kU4v3Rx8Ld1gZ+xOu7yEjx1o5DNKbQSQymF67REOksC9A1dgW/paRaXFjI52RSvUlU4SrjQPMti4MlrFyl6duN15AseWLvZ3HnA1FwZnxbKWI/WUHO8os8o8smZxHlSEk9C2D0cdkiiVFZw/oOWv1YR3frX2Pko4WCPNvix1WVw2oUdYuYRPqpwr1AoAt+3qxgasLC2aqG7m2zSTckXFMIEXvpSxfR7AY31pyEQCJCaBcR+1Y21TK75ZDs7gFcvGT6+E9BYf7jO5ud7O1PG/qE05egZ7Gd4E/Eua6iD4YpObHGlZtZ0XM0TlYpC6kbi94E0zYqGJ2A0IhCiGMenEoyRKFMoUgffNhzYPQwl4vLbjETiwiNrZUkH8bqPY372BThXxu7nDwIjw9ys6clTB1e3dA8y5GByXKA33PxPBYPaogfW796whcAwMDFGJdFoM9pthEQfASGa3HOQfXgwAAAAAElFTkSuQmCC"
+       }
+   }
+}
+```
+
+#### Example Verification -  Driver's License, Social Security Number, Face Compare and Face Liveness Verification
+
+```jsx
+{
+   "data": {
+       "dvcID": "61a3f09647005c0013200000",
+       "verifications": [
+           "dl_verify", "ssn_verify", "face_liveness", "face_compare"
+       ],
+       "document": {
+           "id": "123",
+           "type": "DL, SSN, LiveID, ID Photos",
+           "ssn": "1234567890",
+           "category": "identity_document",
+           "firstName": "JOHN",
+           "lastName": "SMITH",
+           "middleName": "JACBOB",
+           "dob": "01011979",
+           "doi": "",
+           "doe": "02292016",
+           "documentType": "PC",
+           "gender": "2",
+           "height": "510",
+           "eyeColor": "HAZ",
+           "street": "1234 SOME BLVD",
+           "city": "ARLINGTON",
+           "state": "VA",
+           "zipCode": "22203",
+           "country": "USA",
+           "nameSuffix": "",
+           "image1": "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADDklEQVRYR73XS6hWVRQH8J/SLYsbhXotKiorUHImiPSgBxQZlIPMHpCzQpMQhEjsAREF1VCimjQwIiKlQUIPijLKCp0ERUVSlElE5NVMB+W91/jjObA9fH3fuV+nu2bn7PX477X2es3SjmbhWtyOTTg6zo+4qCG+ci47DrL9OKvaqI7ifpTzO/EoLsdxzMOhmQBwKV6qbl6DnJopADfjVZzdcM+MAFiNV3Bqw/jveBFP4Nj/FYLr8A5OK4xPYgsex+H6/x9cNtEAOcm+BRwZ9hGeiy9wTmE8Bu/C221edM0zLIDXEffXdAQ34vPpGA/vMACuwseo0zLplpsH1LRpGABv4tbC0mu4e9qWK4HpAjgPP+GUSv5vLHKi0g1F4zyEK9oIx+Xr8ELBvA13tBHugicAUnBKd6f0Doz9AW6azRkliBE+G+XXXsB+Y3TkxKM+iQLgKyyp/ubxJSQ9lZSS/QpRLwCHWTTBt70AJNfPrA7GMb9qOn093CWA3LqmPLyFbWLbJYCU2tmV0WTDxTMN4ADmVkaP4iwEVF86yPtTnF8yTbF+jA97CR5i4SRv9XoDu7GsOEgN+G4QgK7OkwVpsWsLhesbdaErW9GTLjtWKPwrANKAyrzfhau7tFroehhPFd9bA2AUvxSpmKy4Bp90DCJFa29VZ2rVt9Td73ncXxjcgysx0SGIJ/FIoe+H9JwaQFLva5xeMDyNzR0BuB7vYqTQd2+G3nIsz6z3WMGQUGzAc/8RxFK8V6R61CXz4uHJEkCG0MS9TMlMwc9WwIYJx0q8XNWW+h5/Yjm+yY/mYnIhPtUoMMib2IhkSBu6AIn5mqLKRi6XSLd9o1bSazNaXLksSkpKSAIgI/sH+B7xUE0LkNEu69ttmNOQP4b7sLX8/2+rWTyxvRGOJpgMrdkVUrazwKSc1z2l6aWU+3uqkf+ks367Yd5EdsIHG9nRJgQ1T7yWefMB7O8lOGg5jUxSNDNeblDPDYNAxCt5+c9gZz/mNgBq+RhfgRuQ1Lqkcn3cni76M77ER9iBfYNQ5vwf0qfPvHyWFiMAAAAASUVORK5CYII=",
+           "image2": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAdNJREFUOE+tUz1IW1EYPfe+20TR+IJLsXRQUIc41EWdHDqUQi1CqY6CoIOzIp0Ljk6dAnUQxMW9dFDIkKG1gz/YiIokooaEgISY32fz7vW79/UFM4b4wXs8uOece86597Fa0lZoY3gbXEN9HgEpW0/hc7jzoPDn0G05SXy/7kU4v3Rx8Ld1gZ+xOu7yEjx1o5DNKbQSQymF67REOksC9A1dgW/paRaXFjI52RSvUlU4SrjQPMti4MlrFyl6duN15AseWLvZ3HnA1FwZnxbKWI/WUHO8os8o8smZxHlSEk9C2D0cdkiiVFZw/oOWv1YR3frX2Pko4WCPNvix1WVw2oUdYuYRPqpwr1AoAt+3qxgasLC2aqG7m2zSTckXFMIEXvpSxfR7AY31pyEQCJCaBcR+1Y21TK75ZDs7gFcvGT6+E9BYf7jO5ud7O1PG/qE05egZ7Gd4E/Eua6iD4YpObHGlZtZ0XM0TlYpC6kbi94E0zYqGJ2A0IhCiGMenEoyRKFMoUgffNhzYPQwl4vLbjETiwiNrZUkH8bqPY372BThXxu7nDwIjw9ys6clTB1e3dA8y5GByXKA33PxPBYPaogfW796whcAwMDFGJdFoM9pthEQfASGa3HOQfXgwAAAAAElFTkSuQmCC",             
+           "liveId": "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"
+       }
+   }
+}
+```

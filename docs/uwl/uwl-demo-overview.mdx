@@ -1,0 +1,61 @@
+---
+slug: /uwl/demo
+id: uwl-demo-overview
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import BrowserWindow from "@site/src/components/BrowserWindow";
+import StartSession from "./assets/start-session.jpg";
+import QRSession from "./assets/qr-session.jpg";
+import DecodedQR from "./assets/decodedqr.jpg";
+import Success from "./assets/success.jpg";
+import QRScanned from "./assets/qr-scanned.jpg";
+
+# UWL Demo Application
+
+## **Overview of the UWL Demo Application**
+
+Here's a brief overview of the UWL process:
+
+### 1: Create a UWL Session
+
+Here is an <a href="/devportal/demo" target="_blank"> example of an application </a> using the NodeJS SDK. A session will start when a user clicks the **START SESSION** button.
+
+<BrowserWindow url="https://developer.1kosmos.com/demo/">
+  <img src={StartSession} alt="Example QR" />
+</BrowserWindow>
+
+:::tip Please Note:
+For detailed information on creating a UWL session using the BlockID SDK, see [Create UWL Session](/docs/uwl/uwl-create-session)
+:::
+
+### 2: Poll for UWL Session
+
+When the user clicks the **START SESSION** button, a UWL session and session URL are created using the SDK, and the session URL is encoded into a QR code.
+
+The polling service then starts. It will return a `404 Not Found` error until the BlockID mobile application authenticates the session and returns the `Auth Result` as seen in the image.
+
+<BrowserWindow url="https://developer.1kosmos.com/demo/">
+  <img src={QRSession} alt="QR Session Started" />
+</BrowserWindow>
+
+:::tip Please Note:
+For detailed information on polling a UWL session using the BlockID SDK, see [Poll UWL Session](/docs/uwl/poll)
+:::
+
+### 3: User Scans QR using the BlockID Mobile Application
+
+Using the BlockID mobile application, scan the QR code and authenticate the request.
+
+<img src={Success} alt="Successfully logged in" height="500" />
+
+### 4: Process Response
+
+The device will return the requested information, and the application can continue to its next step, such as logging in.
+
+In the example shown below, the application is designed to return user information and nothing else.
+
+<BrowserWindow url="https://developer.1kosmos.com/demo/">
+  <img src={QRScanned} alt="QR Session Started" />
+</BrowserWindow>

@@ -1,0 +1,202 @@
+---
+slug: /uwl/poll
+id: uwl3
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SessionExpired from "./assets/sessionexpired.png"
+import DecodedQR from "./assets/decodedqr-2.jpg";
+
+
+# Poll UWL Session
+
+## **Poll a UWL Session**
+
+When a session is created using the SDK, a unique session ID and URL endpoint are created, and a polling service starts looking for a response. 
+
+The session will remain valid for 60 seconds. If the polling service does not receive a response within that timeframe, the session will expire and close. 
+
+**To authenticate the request using the BlockID mobile application you will need to encode the session information in a QR code, such as the one in the image below**.
+
+<img src={DecodedQR} height="300"/>
+
+
+
+### Parameters
+
+- `sessionId`: UWL session ID string (required)
+
+### Request Format
+
+<Tabs groupId="OS">
+<TabItem value="node" label="NodeJS SDK">
+
+- Initialize the SDK and poll for UWL session response from the BlockID mobile application
+
+```jsx
+const loaded = await bidsdk.setupTenant({dns: "<your tenant DNS>", communityName: "<your community name>"}, "<your license key>")`;
+BIDSessionResponse response = BIDSessions.pollSession("<sessionId>", true, true);
+```
+
+</TabItem>
+
+<TabItem value="php" label="PHP SDK">
+
+- Initialize the SDK and poll UWL session response
+
+```php
+require_once("./BIDSDK.php");
+require_once("./BIDOTP.php");
+
+$tenant = array("dns" => "<your tenant URL>", "communityName" => "<your community name>");
+
+$license = "<your license key>"
+
+BIDSDK::getInstance()->setupTenant($tenant, $license);
+$ret = BIDSession::pollSession($sessionId, TRUE, TRUE);
+```
+
+</TabItem>
+
+<TabItem value="java" label="Java SDK">
+
+- Initialize the SDK and poll UWL session response
+
+```java
+BIDSDK.getInstance().setupTenant(<your tenant DNS>, "<your license key>");
+BIDSessionResponse response = BIDSessions.pollSession("<sessionId>", true, true);
+```
+
+</TabItem>
+</Tabs>
+
+## **Example UWL Request** 
+
+
+
+
+:::caution Remember:
+You will need to initialize the SDK with your license key and community name for each request.  
+::: 
+
+<Tabs groupId="OS" className="unique-tabs">
+<TabItem value="node" label="NodeJS SDK">
+
+#### Example - Poll UWL Session
+
+Poll a UWL session for a response from the BlockID mobile application. 
+
+```jsx 
+const BIDSDK = require('blockid-nodejs-helpers/BIDSDK.js');
+const loaded = await BIDSDK.setupTenant({dns: "developer.1kosmos.com", communityName: "devx"}, "0005c9f8-1918-40be-aa00-e319043f7eee");
+
+const BIDSessions = require('blockid-nodejs-helpers/BIDSessions.js');
+let sessionData = BIDSessions.pollSession("574bc7f9-b895-4f60-b982-e8e8b8cc1fb0", true, true);
+```
+
+</TabItem>
+
+
+<TabItem value="php" label="PHP SDK">
+
+#### Example - Poll UWL Session
+
+Poll a UWL session for a response from the BlockID mobile application. 
+
+```php
+require_once("./BIDSDK.php");
+require_once("./BIDSession.php");
+
+$tenant = array("dns" => "developer.1kosmos.com", "communityName" => "devx");
+$license = "0005c9f8-1918-40be-aa00-e319043f7eee";
+BIDSDK::getInstance()->setupTenant($tenant, $license);
+
+$ret = BIDSession::pollSession("574bc7f9-b895-4f60-b982-e8e8b8cc1fb0", TRUE, TRUE);
+```
+
+</TabItem>
+
+<TabItem value="java" label="Java SDK">  
+
+#### Example - Poll UWL Session
+
+Poll a UWL session for a response from the BlockID mobile application. 
+
+```java
+BIDSDK.getInstance().setupTenant({dns: "developer.1kosmos.com", communityName: "devx"}, "0005c9f8-1918-40be-aa00-e319043f7eee");
+BIDSessionResponse response = BIDSessions.pollSession("574bc7f9-b895-4f60-b982-e8e8b8cc1fb0", true, true);
+```
+</TabItem>
+</Tabs>
+
+
+## **Example Server Response**
+
+
+The SDK will return an immediate response from our API once the session has been authenticated in the BlockID mobile application. The responses are the same across each SDK and are JSON formatted. Possible response codes you might receive include: 
+
+<Tabs groupId="responses" className="unique-tabs">
+<TabItem value="200" label="200 OK">   
+
+```jsx title="200 OK"
+Promise {
+  {
+    _id: '61e5bfd596b91100217e4ab0',
+    sessionId: '574bc7f9-b895-4f60-b982-e8e8b8cc1fb0',
+    sessionUrl: 'https://developer.1kosmos.com/sessions/session/574bc7f9-b895-4f60-b982-e8e8b8cc1fb0',
+    data: 'pj1MXiqpxCJ2/hXgM7wdQF4Jozyj45AoPNAZIk1oEYDk7NbqtB7Z3QdX0DeI4xeQDOPBs96rUAwrtxbAwLXAqV2iC5k7NEQ=',
+    appid: 'com.bid.node.sdk',
+    ial: '1',
+    publicKey: 'os9skQhJpyJIz7g5xgopwlN3N7eqMR9XMupvIIZf+CkB0V5ADDDdQ0wfA8KqH98NuFch4cIm6qwfuLGwoPCk+A==',
+    createdTS: 1642446805,
+    createdDate: '2022-01-17T19:13:25.051Z',
+    __v: 0,
+    status: 200,
+    user_data: { did: '00a3a25ebd2939b1f129bdd72d0512dc3f3a446a', userid: 'john.smith@company.com' },
+    account_data: null
+  },
+}
+```
+The session was successfully polled and the BlockID mobile application returned a valid response. 
+</TabItem>
+
+<TabItem value="400" label="400 Expired">
+
+```jsx title="400 Expired"
+Promise {
+  { status: 400, message: 'Session has expired' },
+}
+```
+
+The API received an expired session ID. 
+
+</TabItem>
+
+<TabItem value="404-1" label="404 Session Doesn't Exist">
+
+```jsx title="404 Session Doesn't Exist"
+Promise {
+  { status: 404, message: "Session with this sessionId doesn't exist" },
+}
+```
+The API received a session ID that has already had a response returned from the BlockID mobile application. 
+
+:::danger Please Note:
+Once a session has been created and the polling service receives a valid response from the BlockID mobile application, our API will close the session . A session ID can only be used once. 
+:::
+</TabItem>
+
+<TabItem value="404-2" label="404 Not Found">
+
+```jsx title="404 Not Found"
+Promise {
+  { status: 404, message: 'Not Found' },
+}
+```
+
+The API could not find the session. Typically this means an incorrect session ID was provided, or the API did not receive any response from the BlockID mobile application. 
+</TabItem>
+</Tabs>
+
+

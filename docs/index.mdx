@@ -1,0 +1,223 @@
+---
+sidebar_position: 2
+slug: /
+id: index
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# BlockID Developer SDK
+
+The BlockID Developer SDK allows you to easily integrate BlockID services into your development platform. We currently support **NodeJS**, **PHP**, and **Java**.
+
+## **Getting Started** {#gettingstarted}
+
+In order to configure and use the SDK, you will need the following information from your BlockID Developer Dashboard:
+
+- Your Email Address
+- Your License Key
+- Tenant DNS
+- Community Name
+
+## **Install the BlockID SDK**
+
+To get started, install the BlockID SDK for your preferred development environment. The BlockID SDK contains all the necessary libraries and functions needed for secure communication between the BlockID API and user machines.
+
+<Tabs groupId="OS">
+
+<TabItem value="node" label="NodeJS">
+
+#### Install the BlockID SDK for NodeJS
+
+
+In your project directory, create or edit your `package.json` file to include the SDK as a dependency:
+
+```jsx title="package.json"
+{
+  "name": "project",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+	 "blockid-nodejs-helpers": "git+https://github.com/1Kosmos/nodejs-helper-files"
+  },
+ "description": "My project"
+}
+```
+
+Next open a terminal, navigate to your project directory, and execute the following command to install the NodeJS SDK :
+
+```shell
+npm install
+```
+
+:::tip Note
+After installation, the BlockID SDK can be found in the `<project root>/node_modules/blockid-nodejs-helpers` folder
+:::
+
+If you would prefer to install the NodeJS and its dependencies yourself, the git repo can be found at https://github.com/1Kosmos/nodejs-helper-files
+
+
+
+</TabItem>
+
+<TabItem value="php" label="PHP">
+
+#### Install the BlockID SDK for PHP
+
+Clone the [PHP SDK](https://github.com/1Kosmos/php-helper-files) repo from our [github](https://github.com/1Kosmos) and copy the files to your project directory
+
+```shell 
+git clone https://github.com/1Kosmos/php-helper-files.git
+```
+
+
+
+
+:::warning Caution:
+The PHP SDK requires PHP 5.3.2+ to run.  
+:::
+
+</TabItem>
+
+<TabItem value="java" label="Java">
+
+#### Install the BlockID SDK for Java
+
+Clone the [Java SDK](https://github.com/1Kosmos/java-helper-files) repo from our [github](https://github.com/1Kosmos) and copy the files to your project directory
+
+```shell 
+git clone https://github.com/1Kosmos/java-helper-files.git
+```
+
+
+
+<br />
+
+#### Adding the Java SDK to your Project
+
+- Add repo to your project (as submodule) under path: `main › java › com › bidsdk`
+  _(ability to add as gradle dependency will be added soon)_
+- add to your `build.gradle`:
+
+```java
+ext {
+	web3jVersion = "4.5.4"
+}
+
+dependencies {
+
+	implementation group: 'org.bitcoinj', name: 'bitcoinj-core', version: '0.15.10'
+	implementation "org.web3j:core:$web3jVersion"
+
+	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.3.1'
+	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+	implementation 'com.google.code.gson:gson:2.8.6'
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+## **Configure the SDK with your Tenant and License Key**
+
+Configure the SDK with your tenant information and license key
+
+### Parameters
+
+- `dns`: tenant DNS
+- `communityName`: tenant community name
+- `licenseKey`: BlockID license key
+
+### initialization Format
+
+<Tabs groupId="OS">
+<TabItem value="node" label="NodeJS SDK">
+
+#### Configuring the BlockID SDK for NodeJS
+
+- Initialize the SDK
+
+```jsx
+const loaded = await bidsdk.setupTenant({dns: "<your tenant DNS>", communityName: "<your community name"}, "<licenseKey>")`;
+```
+
+</TabItem>
+
+<TabItem value="php" label="PHP SDK">
+
+#### Configuring the BlockID SDK for PHP
+
+- Initialize the SDK
+
+```php
+require_once("./BIDSDK.php");
+require_once("./BIDOTP.php");
+
+$tenant = array("dns" => "<your tenant URL>", "communityName" => "<your community name>");
+
+$license = "<your license key>"
+
+BIDSDK::getInstance()->setupTenant($tenant, $license);
+```
+
+</TabItem>
+
+<TabItem value="java" label="Java SDK">
+
+#### Configuring the BlockID SDK for Java
+
+- Initialize the SDK
+
+```java
+BIDSDK.getInstance().setupTenant(<your tenant URL>, "<your license key>");
+```
+
+</TabItem>
+</Tabs>
+
+## **Example SDK Initialization**
+
+:::tip Please note:
+These are just examples - you will need to replace the dummy information included in the examples below with your own tenant information and license key
+:::
+
+<Tabs groupId="OS" className="unique-tabs">
+<TabItem value="node" label="NodeJS SDK">
+
+#### Example NodeJS SDK Initialization
+
+```jsx
+const BIDSDK = require("blockid-nodejs-helpers/BIDSDK.js");
+const loaded = await BIDSDK.setupTenant(
+  { dns: "developer.1kosmos.com", communityName: "devx" },
+  "0005c9f8-1918-40be-aa00-e319043f7eee"
+);
+```
+
+</TabItem>
+<TabItem value="php" label="PHP SDK">
+
+#### Example PHP SDK Initialization
+
+```php
+require_once("./BIDSDK.php");
+require_once("./BIDOTP.php");
+
+
+
+BIDSDK::getInstance()->setupTenant({dns: "developer.1kosmos.com",/ communityName: "devx"}, "0005c9f8-1918-40be-aa00-e319043f7eee");
+```
+
+</TabItem>
+<TabItem value="java" label="Java SDK">
+
+#### Example Java SDK Initialization
+
+```java
+BIDSDK.getInstance().setupTenant({dns: "developer.1kosmos.com", communityName: "devx"}, "0005c9f8-1918-40be-aa00-e319043f7eee");
+```
+
+</TabItem>
+</Tabs>
