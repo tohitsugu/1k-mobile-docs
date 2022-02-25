@@ -1,0 +1,79 @@
+{
+  "name": "devx-frontend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations"
+  },
+  "dependencies": {
+    "@docusaurus/core": "2.0.0-beta.8",
+    "@docusaurus/preset-classic": "2.0.0-beta.8",
+    "@docusaurus/theme-live-codeblock": "2.0.0-beta.8",
+    "@material-ui/core": "4.12.3",
+    "@material-ui/data-grid": "4.0.0-alpha.24",
+    "@material-ui/lab": "4.0.0-alpha.57",
+    "@mdx-js/react": "^1.6.21",
+    "@svgr/webpack": "^5.5.0",
+    "@zendeskgarden/react-loaders": "^8.44.1",
+    "@zendeskgarden/react-theming": "^8.44.1",
+    "axios": "^0.21.1",
+    "classnames": "^2.3.1",
+    "clsx": "^1.1.1",
+    "core-js": "3.5",
+    "crypto-browserify": "3.12.0",
+    "date-fns": "^2.25.0",
+    "docusaurus-node-polyfills": "1.0.0",
+    "docusaurus2-dotenv": "^1.4.0",
+    "file-loader": "^6.2.0",
+    "formik": "^2.2.6",
+    "jss": "^10.7.1",
+    "jss-plugin-global": "^10.6.0",
+    "jwt-decode": "^3.1.2",
+    "lodash.omit": "^4.5.0",
+    "next-redux-wrapper": "^7.0.5",
+    "prism-react-renderer": "^1.2.1",
+    "prism-themes": "^1.9.0",
+    "raw-loader": "^4.0.2",
+    "react": "^17.0.1",
+    "react-colorful": "^5.5.1",
+    "react-device-detect": "^2.1.2",
+    "react-dom": "^17.0.1",
+    "react-json-view": "^1.21.3",
+    "react-qr-code": "^1.1.1",
+    "react-redux": "^7.2.3",
+    "react-router-dom": "^5.2.0",
+    "react-swipeable-views": "^0.14.0",
+    "redux": "^4.0.5",
+    "redux-saga": "^1.1.3",
+    "reduxsauce": "^1.2.0",
+    "styled-components": "^5.2.3",
+    "text-security": "^3.2.1",
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "ie >= 9"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "ie 11"
+    ]
+  },
+  "description": "Docusaurus example project",
+  "browser": {
+    "crypto": false
+  }
+}
