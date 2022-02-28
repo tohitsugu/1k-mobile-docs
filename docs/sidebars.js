@@ -59,6 +59,7 @@ const sidebars = {
           label: "iOS Mobile SDK",
           items: [
             "mobile-sdk/ios/ios-integration-guide",
+            "mobile-sdk/ios/new-ios-integration-guide",
           ],
         },
         {

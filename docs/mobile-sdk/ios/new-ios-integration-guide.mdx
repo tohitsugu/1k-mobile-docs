@@ -1,50 +1,30 @@
+# Mobile SDK Integration Guide
 ---
 sidebar_position: 5
-slug: /mobile-sdk/mobile-sdk-integration-guide
-id: mobile-sdk-integration-guide
+slug: /mobile-sdk/ios/new-ios-integration-guide
+id: new-ios-integration-guide
 ---
-
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
-import SDKFramwork1 from "./assets/ios1.png"
-import SDKFramwork2 from "./assets/ios2.png"
-import SDKFramwork3 from "./assets/ios3.png"
-import SDKFramwork4 from "./assets/ios4.png"
 
-# Mobile SDK Integration Guide
+# iOS Mobile SDK Integration Guide
 
 ## **Introduction**
 
-The goal of the BlockID Mobile SDK documentation is to give any developer with iOS or Android experience the knowledge and understanding required to create
+The goal of the iOS BlockID Mobile SDK documentation is to give any developer with iOS experience the knowledge and understanding required to create . . .
+
+In addition to detailing how to use the iOS version of the BlockID Mobile SDK, this documentation describes . . . 
+
 
 ## **Prerequisites**
 
-Several general and platform-specific prerequisites are required to develop an android application with the BlockID Mobile SDK
+Several general and specific iOS prerequisites are required to develop an application with the iOS version of the BlockID Mobile SDK.
 
 ### General
 
-- An understanding of how to develop applications for iOS or Android
-- At least one compatible iOS or Android mobile device
-
-<Tabs groupId="SDK" className="unique-tabs">
-<TabItem value="android" label="Android SDK">
-
-### Android 
-
-- Android API Level 23 or higher
-- Android Studio 1.5 or higher
-- Device support
-    - Samsung S7, S8, A30, Fold 
-    - Google Pixel 3, Pixel 4a
-
-:::tip **Note**:
-Support for additional Android devices available as testing and development continues
-:::
-
-</TabItem>
-
-<TabItem value="iOS" label="iOS SDK">
+- An understanding of how to develop applications for iOS
+- At least one compatible iOS mobile device
 
 ### iOS
 
@@ -57,46 +37,9 @@ Support for additional Android devices available as testing and development cont
   - iPhone 5s or later
   - iPod Touch (6th generation) or later
 
-</TabItem>
-
-</Tabs>
-
 ## **Integrate SDK into Application**
 
-The examples below import the BlockID SDK into a new iOS and Android project. The same steps can be used for integration into an existing application.
-
-<Tabs groupId="SDK" className="unique-tabs">
-<TabItem value="android" label="Android SDK">
-
-### Android Studio Project Integration
-
-:::note Screenshots in this section are generated using Android Studio 4.0.
-:::
-
-#### Create a New Application
-
-- Step 1
-- Step 2
-- Step 3
-
-#### Install SDK in the Project
-
-As of writing this document, the BlockID Android SDK can only be installed using manual process as described below:
-
-#### Download the BlockID SDK
-
-- Step 1 
-- Step 2 
-- Step 3 
-
-#### Adding Required Android Libraries 
-
-- Step 1 
-- Step 2 
-- Step 3 
-
-</TabItem>
-<TabItem value="ios" label="iOS SDK">
+The examples below import the BlockID SDK into a new iOS project. The same steps can be used for integration into an existing application.
 
 ### Xcode Project Integration
 
@@ -125,22 +68,8 @@ As of writing this document, the BlockID iOS SDK can only be installed using man
 - Step 2
 - Step 3
 
-</TabItem>
-</Tabs>
-
 
 ## **Application Deployment**
-
-<Tabs groupId="SDK" className="unique-tabs">
-<TabItem value="android" label="Android SDK">
-
-### Android Studio Configuration
-
-Deploying an Android application using the BlockID Mobile SDK does not require any additional steps outside of the typical process
-
-</TabItem>
-
-<TabItem value="iOS" label="iOS SDK">
 
 ### Xcode Configuration
 
@@ -189,5 +118,3 @@ do
     mv "$FRAMEWORK_EXECUTABLE_PATH-merged" "$FRAMEWORK_EXECUTABLE_PATH"
 done
 ```
-</TabItem>
-</Tabs>

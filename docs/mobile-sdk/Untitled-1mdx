@@ -1,8 +1,9 @@
 ---
 sidebar_position: 5
-slug: /mobile-sdk/api-reference2
-id: mobile-sdk-api-reference2
+slug: /mobile-sdk/ios/ios-integration-guide
+id: ios-integration-guide
 ---
+
 
 
 import Tabs from "@theme/Tabs";
