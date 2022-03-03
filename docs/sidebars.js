@@ -52,21 +52,20 @@ const sidebars = {
       label: "BlockID Mobile SDK",
       items: [
         "mobile-sdk/mobile-sdk-overview",
-        "mobile-sdk/mobile-sdk-api-reference",
-        "mobile-sdk/mobile-sdk-integration-guide",
         {
           type: "category",
-          label: "iOS Mobile SDK",
+          label: "API Reference",
           items: [
-            "mobile-sdk/ios/ios-integration-guide",
-            "mobile-sdk/ios/new-ios-integration-guide",
+            "mobile-sdk/api-reference/mobile-sdk-api-reference-ios",
+            "mobile-sdk/api-reference/mobile-sdk-api-reference-android",
           ],
         },
         {
           type: "category",
-          label: "Android Mobile SDK",
+          label: "Integration Guide",
           items: [
-            "mobile-sdk/android/android-integration-guide",
+            "mobile-sdk/integration-guide/mobile-sdk-integration-guide-ios",
+            "mobile-sdk/integration-guide/mobile-sdk-integration-guide-android",
           ],
         },
       ],
