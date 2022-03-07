@@ -222,29 +222,359 @@ Our servers will return different results depending on the verification type bei
 
 ```jsx title="200 Success"
 {
-  "docType": "xxxxx",
-  "docId": "xxxxxxxxxxxxxxxxxxxxxxxx",
-  "type": "xxxxx",
-  "authority": "xxxxx",
-  "ts": "xxxxxxxxxx",
-  "verified": true,
-  "result": {
-    "first_name_match": 0.7,
-    "last_name_match": 0.7,
-    "ssn_match": 0.7,
-    "dob_match": 0.7,
-    "address_match": 0.7,
-    "city_match": 0.7,
-    "state_match": 0.7,
-    "zip_match": 0.7,
-    "identity_verified": true
+  "data": {
+    "docId": "123",
+    "docType": "123",
+    "certifications": [
+      {
+        "docType": "123",
+        "docId": "123",
+        "type": "ssn_verify",
+        "authority": "tracers",
+        "ts": 1646154835444,
+        "verified": false,
+        "result": {},
+        "metadata": {
+          "verifiedPeople": [
+            {
+              "identityScore": 81,
+              "tahoeId": "G5131479699355235090",
+              "firstName": {
+                "value": "John",
+                "matchTypeCode": "Match"
+              },
+              "middleName": {
+                "value": "",
+                "matchTypeCode": "NA"
+              },
+              "lastName": {
+                "value": "Doe",
+                "matchTypeCode": "Match"
+              },
+              "ssn": {
+                "value": "",
+                "matchTypeCode": "Mismatch"
+              },
+              "dateOfBirth": {
+                "month": {
+                  "value": "2",
+                  "matchTypeCode": "Match"
+                },
+                "day": {
+                  "value": "1",
+                  "matchTypeCode": "Match"
+                },
+                "year": {
+                  "value": "1978",
+                  "matchTypeCode": "Match"
+                }
+              },
+              "age": {
+                "value": "44",
+                "matchTypeCode": "NA"
+              },
+              "addresses": [
+                {
+                  "value": "1234 N River Rd; West Lafayette, IN 47906",
+                  "matchTypeCode": "Mismatch"
+                }
+              ],
+              "emails": [],
+              "phones": [],
+              "dateofDeath": null,
+              "indicators": {
+                "hasBankruptcyRecords": 0,
+                "hasBusinessRecords": 0,
+                "hasDivorceRecords": 0,
+                "hasDomainsRecords": 0,
+                "hasEvictionsRecords": 0,
+                "hasFeinRecords": 0,
+                "hasForeclosuresRecords": 0,
+                "hasJudgmentRecords": 0,
+                "hasLienRecords": 0,
+                "hasMarriageRecords": 0,
+                "hasProfessionalLicenseRecords": 0,
+                "hasPropertyRecords": 0,
+                "hasVehicleRegistrationsRecords": 0,
+                "hasWorkplaceRecords": 0,
+                "hasDeaRecords": 0,
+                "hasPropertyV2Records": 0,
+                "hasUccRecords": 0,
+                "hasMobilePhones": 0,
+                "hasLandLines": 0,
+                "hasEmails": 0,
+                "hasAddresses": 1,
+                "hasCurrentAddresses": 1,
+                "hasHistoricalAddresses": 0,
+                "hasDebtRecords": 0
+              },
+              "isPublic": false,
+              "isOptedOut": false
+            },
+            {
+              "identityScore": 68,
+              "tahoeId": "G-7631619096304680083",
+              "firstName": {
+                "value": "John",
+                "matchTypeCode": "Match"
+              },
+              "middleName": {
+                "value": "M",
+                "matchTypeCode": "NA"
+              },
+              "lastName": {
+                "value": "Doe",
+                "matchTypeCode": "Match"
+              },
+              "ssn": {
+                "value": "010-34-XXXX",
+                "matchTypeCode": "Mismatch"
+              },
+              "dateOfBirth": {
+                "month": {
+                  "value": "12",
+                  "matchTypeCode": "Mismatch"
+                },
+                "day": {
+                  "value": "30",
+                  "matchTypeCode": "Mismatch"
+                },
+                "year": {
+                  "value": "1944",
+                  "matchTypeCode": "Mismatch"
+                }
+              },
+              "age": {
+                "value": "77",
+                "matchTypeCode": "NA"
+              },
+              "addresses": [
+                {
+                  "value": "6890 E Sunrise Dr, APT DR; Tucson, AZ 85750-0738",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "201 W Walnut St; Wilmington, DE 19801",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "123 Main St; Wilmington, DE 19804-3902",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "123 Any St; Wilmington, DE 19801",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "123 Main St; Schenectady, NY 12345-0001",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "5000 Estate Enighed; St John, VI 00830-6120",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "7660 N Village Ave; Tucson, AZ 85704-7151",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "6890 E Sunrise Dr, # 12034; Tucson, AZ 85750-0829",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "4837 E Fairmount St; Tucson, AZ 85712-4049",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "201 N Walnut St, FL 6; Wilmington, DE 19801-2920",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "6890 E Sunrise Dr; Tucson, AZ 85750-0829",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "8400 10th St; Los Angeles, CA 90043",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "201 N Walnut St; Wilmington, DE 19801-3933",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "505 Carr Rd; Wilmington, DE 19809-2870",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "101 E Washington Blvd; Los Angeles, CA 90015-3606",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "123 Any; Wilmington, DE 19803",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "123 Any St; Wilmington, DE 19802",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "6890 E Sunrise Dr, # 20341; Tucson, AZ 85750-0738",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "6890 E Sunrise Dr, # 120-341; Tucson, AZ 85750-0738",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "10003 E Catalina Hwy; Tucson, AZ 85749-9472",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "501 W 11th St, RM 323; Wilmington, DE 19801-6423",
+                  "matchTypeCode": "Mismatch"
+                },
+                {
+                  "value": "123 Any St; Wilmington, DE 19801",
+                  "matchTypeCode": "Mismatch"
+                }
+              ],
+              "emails": [
+                {
+                  "value": "joblos@hotmail.com",
+                  "matchTypeCode": "NA"
+                },
+                {
+                  "value": "tlill@aol.com",
+                  "matchTypeCode": "NA"
+                },
+                {
+                  "value": "dm_luda@yahoo.com",
+                  "matchTypeCode": "NA"
+                },
+                {
+                  "value": "fuzzy_skiing@yahoo.com",
+                  "matchTypeCode": "NA"
+                },
+                {
+                  "value": "squach47@comcast.net",
+                  "matchTypeCode": "NA"
+                }
+              ],
+              "phones": [
+                {
+                  "value": "(336) 314-5050",
+                  "matchTypeCode": "NA"
+                },
+                {
+                  "value": "(831) 999-9999",
+                  "matchTypeCode": "NA"
+                },
+                {
+                  "value": "(520) 297-2118",
+                  "matchTypeCode": "NA"
+                },
+                {
+                  "value": "(302) 467-1234",
+                  "matchTypeCode": "NA"
+                }
+              ],
+              "dateofDeath": null,
+              "indicators": {
+                "hasBankruptcyRecords": 0,
+                "hasBusinessRecords": 0,
+                "hasDivorceRecords": 0,
+                "hasDomainsRecords": 0,
+                "hasEvictionsRecords": 0,
+                "hasFeinRecords": 0,
+                "hasForeclosuresRecords": 0,
+                "hasJudgmentRecords": 0,
+                "hasLienRecords": 1,
+                "hasMarriageRecords": 0,
+                "hasProfessionalLicenseRecords": 0,
+                "hasPropertyRecords": 0,
+                "hasVehicleRegistrationsRecords": 0,
+                "hasWorkplaceRecords": 1,
+                "hasDeaRecords": 0,
+                "hasPropertyV2Records": 1,
+                "hasUccRecords": 0,
+                "hasMobilePhones": 2,
+                "hasLandLines": 4,
+                "hasEmails": 5,
+                "hasAddresses": 23,
+                "hasCurrentAddresses": 1,
+                "hasHistoricalAddresses": 22,
+                "hasDebtRecords": 1
+              },
+              "isPublic": true,
+              "isOptedOut": false
+            }
+          ],
+          "fraudAlerts": [],
+          "identityVerified": false,
+          "pagination": {
+            "currentPageNumber": 1,
+            "resultsPerPage": 10,
+            "totalPages": 1
+          },
+          "databaseQueryInfo": [],
+          "searchCriteria": [],
+          "totalRequestExecutionTimeMs": 921,
+          "requestId": "2e97b72c-c0bc-49d9-afd0-16f1d93eade0",
+          "requestType": "IdVerificationScore",
+          "requestTime": "2022-03-01T09:13:55.7957946-08:00",
+          "isError": false,
+          "error": {
+            "inputErrors": [],
+            "warnings": []
+          }
+        },
+        "reason": "unique person not found"
+      },
+      {
+        "docType": "123",
+        "docId": "123",
+        "type": "ssn_verify",
+        "authority": "socure",
+        "ts": 1646154835445,
+        "verified": true,
+        "result": {
+          "first_name_match": 0.99,
+          "last_name_match": 0.99,
+          "ssn_match": 0.99,
+          "dob_match": 0.99,
+          "address_match": 0.99,
+          "city_match": 0.99,
+          "state_match": 0.99,
+          "zip_match": 0.99,
+          "identity_verified": true
+        },
+        "metadata": {
+          "referenceId": "66c2990d-2080-405d-807c-9e8d3076ae71",
+          "kyc": {
+            "reasonCodes": [
+              "I919"
+            ],
+            "fieldValidations": {
+              "firstName": 0.99,
+              "surName": 0.99,
+              "streetAddress": 0.99,
+              "city": 0.99,
+              "state": 0.99,
+              "zip": 0.99,
+              "dob": 0.99,
+              "ssn": 0.99
+            }
+          }
+        },
+        "token": "fjre4SW/5cf5mHdVE13YAoOPyLTK3KU9Npp38Y1XFiexBG9GrAPAXmhakS0I/5Y6qoAr9AjOzYG9vuQYLoSkRMma5XGIqXP8lW1DrFimOUXqeDKqWvEP0RxvReKakMPkVlhq5tO/dqll/LZmkLvnuuZgqPuEd5tHI8yLqRnhFslu5T6MLIIEiFkW1Mi1JU9JjIuRuWprd0zhHXJN8RE37HOjOQYBW1cxZqN3CHPqNOzI547skByq8p7Yreda6XL5XzsP/A9wLTJQedXs9HCyebZ6o4UMp5UQHLgrDnZj4xoqVVdHrQmbTfejWuQCjlQM4LCenDla2HneJb/uPwpzk7oZZiKHOVkpzMdlwyGeKj2TciuyOfpzOlRA/DtCSy2uR0eDY82qQjpkcPXhQkP4YZ4RiSpnNaRTCSsJuL89oQcsgSqwqWnq2Kd9eUDkKITD058D3OcylJPVHl3X+T2DL8TVnkk/vx91C6K0OrQ8W7rPj1VxmpHDZVEXM3EH6i7okRZSEQyx7nS1Ja0A8IXg0g1Dxbj4X9FBh5tQm1bmd19kM03I2lo1l6HYc4AlJaeIF4cSySRHODglLg5QpkaLmWQA+bFKNX6lyQ+W4oH6I5jOsPWXYMmaVcKR86/XGkVL3lELuNwHTnR6PmH1jLL+mzXqIircq9d/8nQl2C3b49Pd4nYrOR4AL6xugf7N9xAcQ8MIEVTIGORH8PDtICRiwsDJW/ZQvzvGtUZoYH85FEqqA6yhEs8GxLKT4WusLU7HhDDStVZQfwizm0dYBS3Ozry1/y8zwM1ENk9BQPGOaKYJzoOcu+rojZRf0/VKr651wdOl1oC29yOKLOp+8QMlVZHVmnCRsYdi2cVCG75igIuQdpJ0KylOqPBCy4KNFRBhjVwaug5ThodgTQ=="
+      }
+    ]
   },
-  "metadata": {},
-  "token": "xxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxx="
+  "publicKey": "4tW63RBUPYX7Vo0pUUCbgacZd1kCbq18mbSKJskOFGqmegPjRqIZg5Z+3JJNQCDWCo0CMDI/RDke+cKyWKx2nw=="
 }
 ```
 
-The social security number verification request was successful, and the identity was verified 
+The verification request was successful
 
 
 </TabItem>
@@ -253,10 +583,11 @@ The social security number verification request was successful, and the identity
 
 ```jsx title="400 Validation Errors"
 {
-    <response here>
+  "code": 400,
+  "message": "Unexpected token c in JSON at position 0"
 }
 ```
-The social security number validation request was unsuccessful due to validation errors
+The verification request was unsuccessful due to validation errors
 
 
 </TabItem>
@@ -265,7 +596,8 @@ The social security number validation request was unsuccessful due to validation
 
 ```jsx title="401 Unauthorized"
 {
-    <response here>
+  "code": 401,
+  "message": "Unauthorized"
 }
 ```
 
@@ -275,9 +607,10 @@ The user is not authorized to make this request. Please contact your tenant comm
 
 <TabItem value="403" Label="403">
 
-```jsx label="403 Forbidden"
+```jsx title="403 Forbidden"
 {
-    <response here>
+  "code": 403,
+  "message": "Forbidden"
 }
 ```
 
@@ -290,7 +623,8 @@ The user does not have access permission to make this request. Please contact yo
 
 ```jsx title="Internal Server Error"
 {
-    <response here>
+  "code": 500,
+  "message": "Unexpected token x in JSON at position 0"
 }
 ```
 

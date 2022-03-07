@@ -234,46 +234,104 @@ Dummy data is included in the examples below
 
 ```jsx title="200 Success"
 {
-  "docType": "string",
-  "docId": "string",
-  "type": "string",
-  "authority": "string",
-  "ts": 0,
-  "verified": true,
-  "result": {
-    "dl_number_matched": true,
-    "dob_match": true,
-    "last_name_exact_match": true,
-    "last_name_fuzzy_match": true,
-    "first_name_exact_match": true,
-    "first_name_fuzzy_match": true,
-    "middle_name_exact_match": true,
-    "middle_name_fuzzy_match": true,
-    "person_suffix_match": true,
-    "doc_category_match": true,
-    "doi_match": true,
-    "doe_match": true,
-    "person_sex_match": true,
-    "person_height_match": true,
-    "person_eye_color_match": true,
-    "city_match": true,
-    "state_match": true,
-    "zip_match": true
+  "data": {
+    "docId": "123",
+    "docType": "123",
+    "certifications": [
+      {
+        "docType": "123",
+        "docId": "123",
+        "type": "aamva",
+        "authority": "aamva",
+        "ts": 1646246070,
+        "verified": false,
+        "result": {
+          "dl_number_matched": false,
+          "dob_match": false,
+          "last_name_exact_match": false,
+          "last_name_fuzzy_match": false,
+          "first_name_exact_match": false,
+          "first_name_fuzzy_match": false,
+          "middle_name_exact_match": false,
+          "middle_name_fuzzy_match": false,
+          "person_suffix_match": false,
+          "doc_category_match": false,
+          "doi_match": false,
+          "doe_match": false,
+          "person_sex_match": false,
+          "person_height_match": false,
+          "person_eye_color_match": false,
+          "city_match": false,
+          "state_match": false,
+          "zip_match": false
+        },
+        "metadata": {
+          "s:Envelope": {
+            "xmlns:a": "http://www.w3.org/2005/08/addressing",
+            "xmlns:s": "http://www.w3.org/2003/05/soap-envelope",
+            "s:Body": {
+              "s:Fault": {
+                "s:Reason": {
+                  "s:Text": {
+                    "xml:lang": "en-US",
+                    "content": "DLDV VSS"
+                  }
+                },
+                "s:Detail": {
+                  "Exception": {
+                    "xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
+                    "xmlns": "http://aamva.org/exceptions/1.0",
+                    "ControlData": {
+                      "xmlns": "http://aamva.org/niem/extensions/1.0",
+                      "MessageAddress": {
+                        "MessageOriginatorId": "P6",
+                        "TransactionLocatorId": 2875536157381225000,
+                        "MessageDestinationId": "KOS"
+                      }
+                    },
+                    "ProgramExceptions": {
+                      "ProgramException": {
+                        "ExceptionTypeCode": "I",
+                        "ExceptionActorText": "DLDV VSS",
+                        "ExceptionFatalIndicatorCode": true,
+                        "ExceptionText": "MVA did not respond in a timely fashion",
+                        "ExceptionId": "0047"
+                      }
+                    },
+                    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance"
+                  }
+                },
+                "s:Code": {
+                  "s:Value": "s:Sender"
+                }
+              }
+            },
+            "s:Header": {
+              "a:Action": {
+                "s:mustUnderstand": 1,
+                "content": "http://aamva.org/dldv/wsdl/2.1/IDLDVService21/VerifyDriverLicenseDataExceptionTypeFault"
+              },
+              "a:MessageID": "uuid:2203021834310001    1UNISG"
+            }
+          }
+        },
+        "token": null,
+        "fault": {
+          "reason": "DLDV VSS",
+          "exception": {
+            "exceptionTypeCode": "I",
+            "exceptionActorText": "DLDV VSS",
+            "exceptionFatalIndicatorCode": true,
+            "exceptionText": "MVA did not respond in a timely fashion",
+            "exceptionId": "0047"
+          }
+        },
+        "reason": null,
+        "error": null
+      }
+    ]
   },
-  "metadata": {},
-  "token": "string",
-  "fault": {
-    "reason": {},
-    "exception": {
-      "exceptionTypeCode": "string",
-      "exceptionActorText": "string",
-      "exceptionFatalIndicatorCode": true,
-      "exceptionText": "string",
-      "exceptionId": {}
-    }
-  },
-  "reason": "string",
-  "error": "string"
+  "publicKey": "4tW63RBUPYX7Vo0pUUCbgacZd1kCbq18mbSKJskOFGqmegPjRqIZg5Z+3JJNQCDWCo0CMDI/RDke+cKyWKx2nw=="
 }
 ```
 
@@ -281,14 +339,16 @@ The identity information on the provided driver's license or identification card
 
 </TabItem>
 
+
 <TabItem value="400" Label="400">
 
 ```jsx title="400 Validation Errors"
 {
-    <response here>
+  "code": 400,
+  "message": "Unexpected token c in JSON at position 0"
 }
 ```
-The validation request was unsuccessful due to validation errors
+The verification request was unsuccessful due to validation errors
 
 
 </TabItem>
@@ -297,7 +357,8 @@ The validation request was unsuccessful due to validation errors
 
 ```jsx title="401 Unauthorized"
 {
-    <response here>
+  "code": 401,
+  "message": "Unauthorized"
 }
 ```
 
@@ -307,9 +368,10 @@ The user is not authorized to make this request. Please contact your tenant comm
 
 <TabItem value="403" Label="403">
 
-```jsx label="403 Forbidden"
+```jsx title="403 Forbidden"
 {
-    <response here>
+  "code": 403,
+  "message": "Forbidden"
 }
 ```
 
@@ -322,7 +384,8 @@ The user does not have access permission to make this request. Please contact yo
 
 ```jsx title="Internal Server Error"
 {
-    <response here>
+  "code": 500,
+  "message": "Unexpected token x in JSON at position 0"
 }
 ```
 
@@ -330,7 +393,11 @@ The application is not working as intended. Please contact your tenant community
 
 </TabItem>
 
+
 </Tabs>
+
+
+
 
 
 
